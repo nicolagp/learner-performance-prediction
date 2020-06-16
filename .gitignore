@@ -3,3 +3,4 @@ __pycache__
 runs
 save
 .ipynb_checkpoints
+DB_CONFIG.py
