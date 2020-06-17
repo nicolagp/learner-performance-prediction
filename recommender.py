@@ -5,6 +5,7 @@ from model_dkt2 import DKT2
 from random import shuffle
 from torch.nn.utils.rnn import pad_sequence
 import numpy as np
+from knowledge_dependencies.pairs import Pairs
 
 class Recommender():
     """
@@ -21,18 +22,14 @@ class Recommender():
         self.model_path = model_path
 
         # load model for prediction
-        self.model = self.__load_model(self.area, self.model_path)
-
-    
-    def __load_model(self, area: str, model_path: str) -> DKT2:
-        """
-        Returns a DKT model instance to
-        """
-        # return torch.load(os.path.join(model_path, area))
-
+        # self.model = torch.load(os.path.join(model_path, area))
         # hardcoded for now
-        return torch.load(os.path.join(model_path, "2015_CN_AZUL"))
+        self.model = torch.load(os.path.join(model_path, "2015_CN_AZUL"))
+
+        # skill dependency relations
+        self.skills = Pairs("skill").get_pairs()
     
+
     def __prepare_data(self, df: pd.DataFrame, randomize=True):
         """
         Function embed the data into input tensors for the model
@@ -88,7 +85,7 @@ class Recommender():
         """
         Predicts dkt scores for a sequence of questions/answers
         df: pandas DataFrame containing the desired data to predict
-        returns: 
+        returns: the original dataframe with an added column for the DKT scores
         """
         # get data and prepare batches
         data = self.__prepare_data(df)
@@ -108,5 +105,18 @@ class Recommender():
                 preds = torch.sigmoid(preds[labels >= 0]).cpu().numpy()
                 test_preds = np.concatenate([test_preds, preds])
 
+        df
         return test_preds
+    
 
+    def suggest(self, df: pd.DataFrame, n: int) -> List[int]:
+        """
+        Suggests items for the student to study, based on his performance on
+        a set of questions and the generated DKT scores for each question
+        This function will analyze the skill dependencies between questions
+        and suggest n questions for the student to study
+
+        n: number of item_ids to return
+        df: dataframe in the format returned by the predict method
+        """
+        pass
