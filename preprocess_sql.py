@@ -111,9 +111,14 @@ def main(args):
     # save data to csv
     train_size = args.train_size
     df_size = df.shape[0]
-    fn = "./data/2015_CN_AZUL/preprocessed_data.csv"
-    fn_train = "./data/2015_CN_AZUL/preprocessed_data_train.csv"
-    fn_test = "./data/2015_CN_AZUL/preprocessed_data_test.csv"
+    if args.test:
+        fn = "./data/test/preprocessed_data.csv"
+        fn_train = "./data/test/preprocessed_data_train.csv"
+        fn_test = "./data/test/preprocessed_data_test.csv"
+    else:
+        fn = "./data/2015_CN_AZUL/preprocessed_data.csv"
+        fn_train = "./data/2015_CN_AZUL/preprocessed_data_train.csv"
+        fn_test = "./data/2015_CN_AZUL/preprocessed_data_test.csv"
 
     df.to_csv(fn, sep="\t", index=False)
     df.iloc[:int(train_size*df_size)].to_csv(fn_train, sep="\t", index=False)
@@ -123,6 +128,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='SQL Preprocessing')
     parser.add_argument("-n", type=int, help="Number of students to use")
     parser.add_argument("--area", type=str, help="Area of knowledge [CN, CH, LC, MT]")
+    parser.add_argument("--test", type=bool, help="Wether to save the data to a test directory")
     parser.add_argument("--train_size", type=float, help="Fraction of data\
 to be used for the train set: [0,1]")
     args = parser.parse_args()
