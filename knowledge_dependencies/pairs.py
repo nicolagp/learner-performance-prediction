@@ -4,8 +4,7 @@ import numpy as np
 class Pairs():
 
     def __init__(self, mode):
-        self.filename = "/home/nicolagp/repos/learner-performance-prediction/data/\
-2015_CN_AZUL/preprocessed_data_test.csv"
+        self.filename = "../data/2015_CN_AZUL/preprocessed_data_test.csv"
         self.df = pd.read_csv(self.filename, delimiter="\t")
         self.mode = mode
 
