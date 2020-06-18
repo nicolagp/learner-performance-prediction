@@ -3,8 +3,12 @@ import numpy as np
 
 class Pairs():
 
-    def __init__(self, mode):
-        self.filename = "../data/2015_CN_AZUL/preprocessed_data_test.csv"
+    def __init__(self, mode, fn):
+        """
+        fn: path to the dataset with dkt scores
+        mode: skill or item
+        """
+        self.filename = fn
         self.df = pd.read_csv(self.filename, delimiter="\t")
         self.mode = mode
 
