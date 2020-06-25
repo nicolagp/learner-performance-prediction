@@ -5,29 +5,24 @@ from model_dkt2 import DKT2
 from random import shuffle
 from torch.nn.utils.rnn import pad_sequence
 import numpy as np
-from knowledge_dependencies.pairs import Pairs
+from pairs import Pairs
+from typing import List
 
-class Recommender():
+
+class DktRunner():
     """
     This class defines an interface to interact with a trained DKT Model and
     generate skill recommendations for practice, given a student's answers.
     """
 
-    def __init__(self, area: str, model_path: str):
+    def __init__(self, model_path: str):
         """
-        area: code for area of knowledge
-        model_path: path to directory with saved models
+        model_path: path to saved model
         """
-        self.area = area
         self.model_path = model_path
 
         # load model for prediction
-        # self.model = torch.load(os.path.join(model_path, area))
-        # hardcoded for now
-        self.model = torch.load(os.path.join(model_path, "2015_CN_AZUL"))
-
-        # skill dependency relations
-        self.skills = Pairs("skill").get_pairs()
+        self.model = torch.load(model_path)
     
 
     def __prepare_data(self, df: pd.DataFrame, randomize=True):

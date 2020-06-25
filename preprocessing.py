@@ -4,7 +4,7 @@ import csv
 import os
 
 class EnemLoader():
-    def __init__(self, years, chunksize=50000, ratio=0.7):
+    def __init__(self, years, chunksize=100000, ratio=0.7):
         # file_path = '/home/nicolagp/data/DADOS/MICRODADOS_ENEM_2015.csv'
         self.base_path = "/media/nicolagp/UBUNTU 20_0/dados_enem"
         self.chunksize = chunksize
@@ -55,6 +55,10 @@ class EnemLoader():
                                           'TX_GABARITO_CN'])
             df_test = df_test.loc[df_test['CO_PROVA_CN'] == self.CO_PROVA_CN[year]].dropna()
             df_test = df_test[~df_test['TX_RESPOSTAS_CN'].str.contains(r'[\.\*]')]
+
+            # remove low scores
+            df_train = df_train[df_train["NU_NOTA_CN"] > 500]
+            df_test = df_test[df_test["NU_NOTA_CN"] > 500]
             break
         print("len train: {}".format(df_train.shape[0]))
         print("len test: {}".format(df_test.shape[0]))
