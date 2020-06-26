@@ -9,9 +9,11 @@ class InfluenceGraph():
         nx.DiGraph object
         - Throws exception if none or more than one are provided
         """
-        if not (path or adj_matrix):
+        if path == None and adj_matrix == None and graph == None:
             raise AttributeError("No source provided to build graph.")
-        elif (path and adj_matrix) or (path and graph) or (adj_matrix and graph):
+        elif (path != None and adj_matrix != None) or 
+             (path != None and graph != None) or
+             (adj_matrix != None and graph != None):
             raise AttributeError("Too many sources provided to build graph.")
         elif adj_matrix:
             self.graph = nx.to_networkx_graph(adj_matrix, create_using=nx.DiGraph)
