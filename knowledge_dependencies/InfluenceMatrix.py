@@ -136,7 +136,7 @@ class InfluenceMatrix():
         return mat
 
     
-    def plot_items(self, threshold, items=None, save_path=None)
+    def plot_items(self, threshold, items=None, save_path=None):
         """
         - Plots two heatmaps, with the original item relations and a filtered
         version, based on the threshold parameter
@@ -170,7 +170,7 @@ class InfluenceMatrix():
         plt.show()
 
 
-    def plot_skills(self, threshold, skills=None, save_path=None)
+    def plot_skills(self, threshold, skills=None, save_path=None):
         """
         - Plots two heatmaps, with the original skill relations and a filtered
         version, based on the threshold parameter
