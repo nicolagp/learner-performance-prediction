@@ -70,8 +70,8 @@ class InfluenceMatrix():
         for i in range(shape[0]):
             for j in range(shape[1]):
                 if i != j:
-                    Y[i, j] = df[(df["i"] == mapping[i]) &
-                     (df["j"] == mapping[j])]["DKT"].iloc[0]
+                    Y[i, j] = df[(df["i"] == self.mapping[i]) &
+                     (df["j"] == self.mapping[j])]["DKT"].iloc[0]
 
         return Y
 
@@ -103,7 +103,7 @@ class InfluenceMatrix():
         
         items = self.df.item_id.unique()
         pair_df = pd.DataFrame(pairs, index=items, columns=items)
-        g = df.groupby("item_id")
+        g = self.df.groupby("item_id")
         itos = {i:g.get_group(i)["skill_id"].iloc[0] for i in items}
 
         # function to get a list of all items that match a certain skill
@@ -131,7 +131,7 @@ class InfluenceMatrix():
 
         for i in range(30):
             for j in range(30):
-                mat[i,j] = y(i+1,j+1,itos,pairs,mapping)
+                mat[i,j] = y(i+1,j+1,itos,pairs,self.mapping)
 
         return mat
 
