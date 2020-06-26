@@ -5,7 +5,6 @@ from model_dkt2 import DKT2
 from random import shuffle
 from torch.nn.utils.rnn import pad_sequence
 import numpy as np
-from pairs import Pairs
 from typing import List
 
 
@@ -83,8 +82,8 @@ class DktRunner():
         returns: the original dataframe with an added column for the DKT scores
         """
         # get data and prepare batches
-        data = self.__prepare_data(df)
-        batches = self.__prepare_batches(data, 16)
+        data = self.__prepare_data(df, False)
+        batches = self.__prepare_batches(data, 16, False)
 
         # evaluate from model
         self.model.eval()
