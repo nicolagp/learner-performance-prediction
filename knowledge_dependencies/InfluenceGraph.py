@@ -11,9 +11,7 @@ class InfluenceGraph():
         """
         if path == None and adj_matrix == None and graph == None:
             raise AttributeError("No source provided to build graph.")
-        elif (path != None and adj_matrix != None) or 
-             (path != None and graph != None) or
-             (adj_matrix != None and graph != None):
+        elif (path != None and adj_matrix != None) or (path != None and graph != None) or(adj_matrix != None and graph != None):
             raise AttributeError("Too many sources provided to build graph.")
         elif adj_matrix:
             self.graph = nx.to_networkx_graph(adj_matrix, create_using=nx.DiGraph)
