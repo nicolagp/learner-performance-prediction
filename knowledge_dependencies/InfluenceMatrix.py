@@ -128,10 +128,10 @@ class InfluenceMatrix():
             return s/len(prods)
 
         mat = np.zeros((30,30))
-
+        rev_map = {v:k for k,v in self.mapping.items()}
         for i in range(30):
             for j in range(30):
-                mat[i,j] = y(i+1,j+1,itos,pairs,self.mapping)
+                mat[i,j] = y(i+1,j+1,itos,pairs,rev_mapping)
 
         return mat
 
