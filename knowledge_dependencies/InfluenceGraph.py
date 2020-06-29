@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 class InfluenceGraph():
 
-    def __init__(self, adj_matrix=None, path=None, graph=None):
+def __init__(self, adj_matrix=None, path=None, graph=None):
         """
         - Initialize class from and adjacency matrix, a .edges file or a
         nx.DiGraph object
@@ -13,9 +13,9 @@ class InfluenceGraph():
             raise AttributeError("No source provided to build graph.")
         elif (path is not None and adj_matrix is not None) or (path is not None and graph is not None) or(adj_matrix is not None and graph is not None):
             raise AttributeError("Too many sources provided to build graph.")
-        elif adj_matrix:
+        elif adj_matrix is not None:
             self.graph = nx.to_networkx_graph(adj_matrix, create_using=nx.DiGraph)
-        elif path:
+        elif path is not None:
             self.graph = nx.read_edgelist("g_removed_by_mfas.edges",
                                           create_using = nx.DiGraph(),
                                           nodetype = int)
